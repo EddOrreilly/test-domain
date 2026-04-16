@@ -1,0 +1,33 @@
+# Abstract Tool Definitions for Agentic Workflows
+
+These tool definitions are intentionally generic and describe capabilities rather than implementations.
+They are meant to help agents reason about shared software development processes without locking the spec to a specific technology.
+
+## git
+Purpose: Manage repository state, branches, commits, diffs, and history.
+Typical usage:
+- checkout branches
+- inspect changed files
+- create commits and pull requests
+- verify merge readiness
+
+## issue-tracker
+Purpose: Read and update issue metadata, labels, and status.
+Typical usage:
+- summarize backlog and work items
+- link issues to releases and PRs
+- enforce triage and issue lifecycle policy
+
+## workflow-runner
+Purpose: Trigger and inspect workflow execution status.
+Typical usage:
+- confirm workflow run success or failure
+- compare expected checks against current results
+- recommend corrective actions when runs fail
+
+## documentation
+Purpose: Read and update documentation artifacts and guidance.
+Typical usage:
+- keep docs synchronized with shared workflow rules
+- validate exercise examples and onboarding content
+- ensure content remains discoverable and consistent
