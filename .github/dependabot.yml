@@ -1,0 +1,44 @@
+# Agentic Workflow Master Definitions
+
+This repository is the canonical source for global agentic workflow definitions, including agent guidance, reusable skills, and abstract tool references.
+
+## Purpose
+Use this repository to manage and release shared agentic workflow specifications across a large fleet of repositories.
+It is designed to support distribution of:
+- `AGENTS.md` for global agent definitions
+- `skills/` for reusable capability guidance
+- `TOOLS.md` for abstract tool references
+- `.github/workflows/` for shared workflow templates
+- `.github/copilot-instructions.md` for agent and Copilot guidance
+
+## Release distribution strategy
+1. Update the shared spec files in this repository.
+2. Push to `main` or trigger the workflow manually.
+3. `.github/workflows/sync-agentic-specs.yml` runs and uses `joshjohanning/bulk-github-repo-settings-sync-action@v2.2.3`.
+4. The action opens pull requests in target repositories to update shared workflow files, Copilot instructions, agent definitions, tool references, and skill guidelines.
+5. Review and merge those PRs to synchronize the fleet to the latest version.
+
+See `docs/adr/global-arc-0001-use-bulk-repo-settings-sync-action.md` for the architecture decision and rationale.
+
+## Master files included
+- `.github/workflows/sync-agentic-specs.yml` — sync workflow that distributes specs.
+- `config/repos.yml` — sample repository list and override examples; kept for reference.
+- `config/workflows/agentic-workflow.yml` — shared workflow template distributed to target repos.
+- `config/copilot/copilot-instructions.md` — shared Copilot/agent guidance.
+- `skills/software-development.md` — portable software development skill definitions.
+- `TOOLS.md` — abstract tooling definition reference.
+
+## Customization and extension
+This repository provides canonical definitions only. Teams should extend the master template with repo-specific local files rather than editing synced shared artifacts directly.
+
+Recommended pattern:
+- Keep canonical workflow inputs and shared guidance in the master files.
+- Add a local wrapper workflow in downstream repos that calls the shared reusable workflow with repository-specific inputs.
+- Store stack-specific developer commands and context in a separate local file, for example `.github/copilot-instructions.local.md`.
+- Use placeholders such as `{{ TECH_STACK }}` and `{{ LOCAL_BUILD_COMMAND }}` in local documentation.
+
+## How to use this repository
+- Keep this repository as the source of truth for agentic workflow policy.
+- Use the sync workflow to distribute updates, not direct copying.
+- Avoid embedding technology-specific dependencies in shared definitions.
+- Prefer generic language around quality, review, release, and collaboration.
